@@ -3,6 +3,6 @@
   </head>
   <body>
     <form method="" >
-    <//form>
+    </form>
   </body>
 </html>
