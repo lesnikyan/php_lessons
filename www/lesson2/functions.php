@@ -1,4 +1,13 @@
 <?php
+
+function p($x=''){print "<div>$x</div>";}
+function imp($arr){
+	if(count($arr) > 5){$arr = array_slice($arr, 0, 5); $arr[] = ' ...';}; 
+	return '[' . implode(',', $arr) . ']';
+}
+
+print 'php test runned <pre>';
+
 $foo = function(){ p ('foo func'); };
 $foo();
 
