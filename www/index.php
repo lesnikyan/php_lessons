@@ -7,4 +7,8 @@ $z = $x + $y;
 
 print " z = $z \n";
 
-print gettype(123) . "  \n";
+print gettype(123) . " <br> \n";
+
+print (true || FALSE) ? 'Y' : 'N';
+
+phpinfo();
