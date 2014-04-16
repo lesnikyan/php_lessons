@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<data>
+	<users>
+		<admins>
+			<person name="Admin1" surname="Ali1" age="21"></person>
+			<person name="Admin2" surname="Ali2" age="22"></person>
+			<person name="Admin3" surname="Ali3" age="23"></person>
+		</admins>
+		<moderators>
+			<person name="Moder1" surname="Scott1" age="31"></person>
+			<person name="Moder2" surname="Scott2" age="32"></person>
+			<person name="Moder3" surname="Scott3" age="33"></person>
+			<person name="Moder4" surname="Scott4" age="34"></person>
+		</moderators>
+			<person name="User1" surname="Peternko1" age="25"></person>
+			<person name="User1" surname="Peternko1" age="35"></person>
+			<person name="User1" surname="Peternko1" age="45"></person>
+			<person name="User1" surname="Peternko1" age="55"></person>
+			<person name="User1" surname="Peternko1" age="26"></person>
+			<person name="User1" surname="Peternko1" age="36"></person>
+			<person name="User1" surname="Peternko1" age="46"></person>
+		<members>
+		</members>
+	</users>
+	<actions>
+		<birthday>
+			<person name="" surname="" age=""></person>
+			<date year="" month="" day=""></date>
+			<adress>1-st Street, 11 / 111</adress>
+		</birthday>
+		<birthday>
+			<person name="" surname="" age=""></person>
+			<date year="" month="" day=""></date>
+			<adress>2-st Street, 22 / 222</adress>
+		</birthday>
+		<birthday>
+			<person name="" surname="" age=""></person>
+			<date year="" month="" day=""></date>
+			<adress>3-st Street, 33 / 333</adress>
+		</birthday>
+		<anniversary>
+			<person name="" surname="" age=""></person>
+			<date year="" month="" day=""></date>
+			<adress>4-st Street, 44 / 444</adress>
+		</anniversary>
+		<birthday>
+			<person name="" surname="" age=""></person>
+			<date year="" month="" day=""></date>
+			<adress>5-st Street, 55 / 555</adress>
+		</birthday>
+		<anniversary>
+			<person name="" surname="" age=""></person>
+			<date year="" month="" day=""></date>
+			<adress>6-st Street, 66/ 660</adress>
+		</anniversary>
+		<birthday>
+			<person name="" surname="" age=""></person>
+			<date year="" month="" day=""></date>
+			<adress>7-st Street, 77 / 777</adress>
+		</birthday>
+	</actions>
+</data>
