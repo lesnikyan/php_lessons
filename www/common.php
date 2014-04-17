@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/html; chrset=utf-8');
+header('Content-Type: text/html; charset=utf-8');
 function p($x='print empty...'){
 	$type = gettype($x);
 	$out = $x;
