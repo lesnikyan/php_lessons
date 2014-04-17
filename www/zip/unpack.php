@@ -6,8 +6,11 @@ $zipPath = 'content/';
 
 $zip = new ZipArchive;
 
-if($zip->open($zipFile)){}
+if(!$zip->open($zipFile)){
+	die('Unable open file!');
+}
 
+// read archive
 $num = $zip->numFiles;
 
 $files = [];
@@ -28,11 +31,21 @@ for($i=1; $i<$num; ++$i){
 	}
 }
 
-// ************* XML Schema ***************
+// ************* XML Schema of data ***************
 if(! $schemaIndex){
 	die('No valid schwma');
 }
 
+$schemaData = $zip->getFromIndex($schemaIndex);
+//p(htmlspecialchars($schemaData));
+
+$xml = simplexml_load_string($schemaData);
+
+$nodes = $xml->xpath('/nodes/node');
+
+$units = xml2array($nodes, ['text', 'image', 'title']);
+
+// Methods
 function xml2array( $xmlNodes, $fields ){
 	$res = [];
 	foreach($xmlNodes as $node){
@@ -55,21 +68,13 @@ function img2base64($image){
 	return $data64;
 }
 
-$schemaData = $zip->getFromIndex($schemaIndex);
-//p(htmlspecialchars($schemaData));
-
-$xml = simplexml_load_string($schemaData);
-
-$nodes = $xml->xpath('/nodes/node');
-
-$units = xml2array($nodes, ['text', 'image', 'title']);
-
+// Prepare data
 // make image
 $nodeIndex = isset($_GET['page']) ? intval($_GET['page']) : 0 ;
 $imagePath = "$zipPath{$units[$nodeIndex]['image']}";
-//p($imagePath);
+
 $imageStr = $zip->getFromName($imagePath);
-//p($imageStr);
+
 $image = imagecreatefromstring($imageStr);
 $imageData = 'data:image/png;base64,' . img2base64($image);
 
@@ -77,8 +82,6 @@ $imageData = 'data:image/png;base64,' . img2base64($image);
 $textPath = "$zipPath{$units[$nodeIndex]['text']}";
 $textStr = $zip->getFromName($textPath);
 $textStr = str_replace("\n", "<br />\n", $textStr);
-
-//p($units);
 
 ?>
 <h3>Анекдоты</h3>
