@@ -1,7 +1,7 @@
 <?php
 
 if(! is_dir('tmp')){
-	die('No text source!');
+	die('No text source! Please make tmp dir and put texts.');
 }
 
 $files = scandir('tmp');
