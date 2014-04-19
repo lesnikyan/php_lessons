@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<nodes>
+	<node text="a1.txt" image="a1.jpg" title="Node 1"></node>
+	<node text="a2.txt" image="a2.jpg" title="Node 2"></node>
+	<node text="a3.txt" image="a3.jpg" title="Node 3"></node>
+</nodes>
