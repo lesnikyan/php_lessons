@@ -11,15 +11,22 @@ function oneWordReader(){
 	data.index = 0;
 	var words = [];
 
-	function iteration(){
-		if(!words || words.length < data.index + 1 )
-			return log('and of words, index = ' + words.length);
+	function step1(){
+		$('#content').html('');
+	}
+	function step2(){
 		$('#content').html(words[data.index]);
 		$('#counter').html(data.index++);
 	}
-
+	function iteration(interval){
+		if(!words || words.length < data.index + 1 )
+			return log('and of words, index = ' + words.length);
+		step1();
+		setTimeout(step2, 30);
+	}
+	
 	return {
-		get next(){ return iteration();},
+		next: function(interval){ return iteration(interval);},
 		get wordLen(){ return words.length; },
 		get currentIter(){return data.index; },
 		set newText(text){
@@ -48,7 +55,7 @@ $(window).load(function(){
 			if(! active)
 				return;
 			setTimeout(function(){
-				action.next;
+				action.next();
 				actor();
 			}, fps);
 		}

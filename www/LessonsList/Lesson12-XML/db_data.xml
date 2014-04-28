@@ -12,6 +12,7 @@
 			<person name="Moder3" surname="Scott3" age="33"></person>
 			<person name="Moder4" surname="Scott4" age="34"></person>
 		</moderators>
+		<members>
 			<person name="User1" surname="Peternko1" age="25"></person>
 			<person name="User1" surname="Peternko1" age="35"></person>
 			<person name="User1" surname="Peternko1" age="45"></person>
@@ -19,7 +20,6 @@
 			<person name="User1" surname="Peternko1" age="26"></person>
 			<person name="User1" surname="Peternko1" age="36"></person>
 			<person name="User1" surname="Peternko1" age="46"></person>
-		<members>
 		</members>
 	</users>
 	<actions>
@@ -59,4 +59,5 @@
 			<adress>7-st Street, 77 / 777</adress>
 		</birthday>
 	</actions>
+	
 </data>
