@@ -56,6 +56,17 @@
 		document.getElementById('clear').onclick = function(){
 			log('clear click event');
 			document.getElementById('content').innerHTML = '';
+			var xmlHttp = createRequestObject();
+			var url = 'oldway.server.php?clear';
+			xmlHttp.open('GET', url, true);
+			xmlHttp.onreadystatechange = function(){
+				if(xmlHttp.readyState == 4){
+					var response = xmlHttp.responseText;
+					log(response);
+					document.getElementById('content').innerHTML = response;
+				}
+			}
+			xmlHttp.send(null);
 		};
 		document.getElementById('update').onclick = function(){
 			log('update click event');
