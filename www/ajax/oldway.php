@@ -24,7 +24,6 @@
 	
 	</script>
 	
-	
 	<script type="text/javascript">
 	// normal
 	var xhr = new XMLHttpRequest();
@@ -52,26 +51,11 @@
 
 	
 	function load(){
-		//log(xmlHttp);
-		document.getElementById('clear').onclick = function(){
-			log('clear click event');
-			document.getElementById('content').innerHTML = '';
-			var xmlHttp = createRequestObject();
-			var url = 'oldway.server.php?clear';
-			xmlHttp.open('GET', url, true);
-			xmlHttp.onreadystatechange = function(){
-				if(xmlHttp.readyState == 4){
-					var response = xmlHttp.responseText;
-					log(response);
-					document.getElementById('content').innerHTML = response;
-				}
-			}
-			xmlHttp.send(null);
-		};
+		// Update event handler
 		document.getElementById('update').onclick = function(){
 			log('update click event');
 			var xmlHttp = createRequestObject();
-			var url = 'oldway.server.php';
+			var url = 'server-data.php';
 			xmlHttp.open('GET', url, true);
 			xmlHttp.onreadystatechange = function(){
 				if(xmlHttp.readyState == 4){
@@ -82,6 +66,42 @@
 			}
 			xmlHttp.send(null);
 		};
+		
+		// Clear event handler
+		document.getElementById('clear').onclick = function(){
+			log('clear click event');
+			document.getElementById('content').innerHTML = '';
+			var url = 'server-data.php?clear=1';
+			var responseHandler = function(response){
+				document.getElementById('content').innerHTML = response;
+			};
+			var responseError = function(text, code){
+				alert('Error response return ' + code + "\n" + text);
+			};
+			ajaxRequest('GET', url, responseHandler, responseError);
+		};
+	}
+	
+	// global var - XMLHttpRequest
+	var ajaxXHR = null;
+	
+	// ajax request starter
+	function ajaxRequest(method, url, responseSuccessHandler, responseErrorHandler){
+		// if first call
+		if(ajaxXHR == null)
+			ajaxXHR = createRequestObject();
+		
+		ajaxXHR.open('GET', url, true);
+		ajaxXHR.onreadystatechange = function(){
+			if(ajaxXHR.readyState == 4){
+				if(ajaxXHR.status == 200){
+					responseSuccessHandler(ajaxXHR.responseText);
+				} else {
+					responseErrorHandler(ajaxXHR.responseText, ajaxXHR.status);
+				}
+			}
+		};
+		ajaxXHR.send(null);
 	}
 	
 	</script>

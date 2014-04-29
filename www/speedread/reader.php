@@ -2,7 +2,7 @@
 include 'prepare.php';
 ?><html>
 <head>
-	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="/jquery.js"></script>
 	<script type="text/javascript" src="engine.js"></script>
 	<link type="text/css" rel="stylesheet" href="reader.css" />
 </head>
