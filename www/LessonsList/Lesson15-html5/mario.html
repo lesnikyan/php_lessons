@@ -1,0 +1,77 @@
+<html>
+<head>
+<script type="text/javascript">
+
+function log(x){
+	return console && console.log(x);
+}
+
+function $$(id){
+	return document.getElementById(id);
+}
+
+
+//проверка поддержки html5 storage
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+} catch (e) {
+    return false;
+  }
+}
+
+function load(){
+	if(supports_html5_storage()){
+		var counter = localStorage.getItem('counter');
+		log(counter)
+		if(counter === null){
+			counter = 0;
+		} else {
+			counter ++;
+		}
+		$$('store-display').innerHTML = ' Counter = ' + counter;
+		localStorage.setItem('counter', counter);
+		
+		localStorage['userName'] = 'Vasya'; // localStorage.setItem('userName', 'Vasya')
+		var name = localStorage['userName']; // localStorage.getItem('userName');
+	}
+	var str = JSON.stringify([1,2,3,4]);
+	var obj = JSON.parse('{"x":"y"}');
+}
+
+/**
+1. создать список итемов по случайным координатам
+2. запомнить список в локальное хранилище
+3. при загрузке странцы добавить 1-5 новых
+4. отрисовать весь список кружками/квадратами/картинками
+*/
+
+// звуки - http://soundbible.com/tags-game.html
+
+
+</script>
+</head>
+<body onload="load();">
+
+<audio src="Mario_Jumping.mp3" controls></audio>
+<br>
+<audio controls>
+	<source src="Mario_Jumping.mp3"  type="audio/mp3" ></source>
+	<source src="Mario_Jumping.ogg"  type="audio/ogg" ></source>
+	браузер не пожжерживает тег audio
+</audio>
+<br>
+
+<audio src="Mario_Jumping.mp3" id="track1" controls></audio>
+
+<div>
+	<button onclick="$$('track1').play();">play</button>
+	<button onclick="$$('track1').pause();">pause</button>
+	<button onclick="$$('track1').volume += 0.1;">vol +</button>
+	<button onclick="$$('track1').volume -= 0.1;">vol -</button>
+</div>
+
+<div id="store-display"></div>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<html>
+<head>
+<script type="text/javascript">
+
+function log(x){
+	return console && console.log(x);
+}
+
+function $$(id){
+	return document.getElementById(id);
+}
+
+
+//проверка поддержки html5 storage
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+} catch (e) {
+    return false;
+  }
+}
+
+function load(){
+	if(supports_html5_storage()){
+		var counter = localStorage.getItem('num');
+		log(counter)
+		if(counter === null){
+			counter = 0;
+		} else {
+			counter ++;
+		}
+		$$('store-display').innerHTML = ' Counter = ' + counter;
+		localStorage.setItem('num', counter);
+	}
+}
+
+</script>
+</head>
+<body onload="load();">
+
+<audio src="Mario_Jumping.mp3" controls></audio>
+<br>
+<audio controls>
+	<source src="Mario_Jumping.mp3"  type="audio/mp3" ></source>
+	<source src="Mario_Jumping.ogg"  type="audio/ogg" ></source>
+	браузер не пожжерживает тег audio
+</audio>
+<br>
+<audio src="The-Final-Countdown.mp3" id="track1" controls></audio>
+
+<div>
+	<button onclick="$$('track1').play();">play</button>
+	<button onclick="$$('track1').pause();">pause</button>
+	<button onclick="$$('track1').volume += 0.1;">vol +</button>
+	<button onclick="$$('track1').volume -= 0.1;">vol -</button>
+</div>
+
+<div id="store-display"></div>
+
+</body>
+</html>
