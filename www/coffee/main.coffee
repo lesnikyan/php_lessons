@@ -1,6 +1,11 @@
 # cd C:\Users\Less\IdeaProjects\phptest\www\coffee
 # coffee -w -0 ./ *.coffee
 
+###
+online
+http://jsbin.com/kabozihe/1
+###
+
 log = (x) -> console.log(x) if console
 
 animationLoop = (foo) ->
