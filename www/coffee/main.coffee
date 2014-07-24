@@ -1,4 +1,4 @@
-# cd C:\Users\Less\IdeaProjects\phptest\www\coffee
+# cd path/of/project
 # coffee -w -0 ./ *.coffee
 
 ###
@@ -39,6 +39,12 @@ class Vec2
 
 	copy:->
 		new Vec2 @x, @y
+
+	dist:(point)->
+		new Vec2 (point.x - @x ), (point.y - @y )
+
+	scalar:->
+		Math.sqrt (@x * @x + @y * @y)
 
 	toArray:->
 		[@x, @y]
@@ -127,10 +133,9 @@ class Ejector extends Unit
 		@world = params.world
 		@pos = params.pos
 		@parts = []
-		@maxParticles = 300
+		@maxParticles = 200
 		@addNum = 2
-		@life = 2 # sec
-	#	@pos = new Vec2 400, 550
+		@life = 1.5 # sec
 
 	update:(time)->
 		for part, index in @parts by -1
@@ -140,7 +145,6 @@ class Ejector extends Unit
 
 	remove:(index)->
 		@addSecond(@parts[index]) if @parts[index].type == 'Part1'
-		#  instanceof SecondParticle #@parts[index] instanceof Particle and
 		@parts.splice index, 1
 
 	draw:->
@@ -181,15 +185,15 @@ class Particle extends Unit
 		@world = params.world
 		@pos = params.pos
 		@life = params.life ? 2 #sec
-		@step = 100
+		@step = 150
 		@gravity = new Vec2 0, -2
 		@size = 5 # radius
+		@pushFactor = 2
 		@ended = no
 		@direction = new Vec2(
 			@gravity.x + @gravity.y/20 - Math.random() * @gravity.y/10,
 			@gravity.y / 2 * Math.random() + @gravity.y / 2
 		)
-		#log @direction
 		@stepDir = @direction.copy().mult(@step)
 
 	update:(time)->
@@ -197,14 +201,13 @@ class Particle extends Unit
 		subTime = time / 1000
 		@life -= subTime
 		@ended = yes if @life < 0
-		#@pos.add(@stepDir.part(subTime))
-
 		pureStep = @stepDir.part(subTime)
-		fokusDist = dist(@world.fokus, @pos) / 100
-		vectDist = new Vec2( @pos.x - @world.fokus.x, @pos.y - @world.fokus.y).mult(1/10000)
-		.mult(@world.pushField/(square(fokusDist)))
-		pureStep.add(vectDist)
-		@pos.add(pureStep)
+		vectDist = @world.fokus.dist @pos
+		scalarDist = vectDist.scalar()
+		pushImpuls = @world.pushField/(pow(scalarDist, @pushFactor))
+		pushStep = do vectDist.copy
+		pushStep.mult(pushImpuls)
+		@pos.add(pureStep).add(pushStep)
 
 	draw:()->
 		return if @ended
@@ -217,8 +220,10 @@ class Particle extends Unit
 
 square = (x) -> x * x
 
+pow = (num, exp) -> Math.pow(num, exp)
+
 dist = (a,b) ->
-	Math.sqrt(square(b.x - a.x) + square(b.y - a.y))
+	Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2))
 
 class SecondParticle extends Particle
 	constructor:(params)->
@@ -267,9 +272,6 @@ class UserInterface
 # INIT
 $(window).load ()->
 	world = new World document.getElementById 'display'
-	#unit = new Ejector world
-	#log unit
-	#log "unit id = #{unit.id}"
 	world.addUnit (new Ejector {
 		world: world
 		pos: new Vec2 200, 550

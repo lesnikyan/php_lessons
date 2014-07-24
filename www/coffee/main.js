@@ -6,7 +6,7 @@ http://jsbin.com/kabozihe/1
  */
 
 (function() {
-  var Ejector, Particle, SecondParticle, ThirdParticle, Unit, UserInterface, Vec2, World, animationLoop, dist, log, square,
+  var Ejector, Particle, SecondParticle, ThirdParticle, Unit, UserInterface, Vec2, World, animationLoop, dist, log, pow, square,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -53,6 +53,14 @@ http://jsbin.com/kabozihe/1
 
     Vec2.prototype.copy = function() {
       return new Vec2(this.x, this.y);
+    };
+
+    Vec2.prototype.dist = function(point) {
+      return new Vec2(point.x - this.x, point.y - this.y);
+    };
+
+    Vec2.prototype.scalar = function() {
+      return Math.sqrt(this.x * this.x + this.y * this.y);
     };
 
     Vec2.prototype.toArray = function() {
@@ -190,9 +198,9 @@ http://jsbin.com/kabozihe/1
       this.world = params.world;
       this.pos = params.pos;
       this.parts = [];
-      this.maxParticles = 300;
+      this.maxParticles = 200;
       this.addNum = 2;
-      this.life = 2;
+      this.life = 1.5;
     }
 
     Ejector.prototype.update = function(time) {
@@ -280,16 +288,17 @@ http://jsbin.com/kabozihe/1
       this.world = params.world;
       this.pos = params.pos;
       this.life = (_ref = params.life) != null ? _ref : 2;
-      this.step = 100;
+      this.step = 150;
       this.gravity = new Vec2(0, -2);
       this.size = 5;
+      this.pushFactor = 2;
       this.ended = false;
       this.direction = new Vec2(this.gravity.x + this.gravity.y / 20 - Math.random() * this.gravity.y / 10, this.gravity.y / 2 * Math.random() + this.gravity.y / 2);
       this.stepDir = this.direction.copy().mult(this.step);
     }
 
     Particle.prototype.update = function(time) {
-      var fokusDist, pureStep, subTime, vectDist;
+      var pureStep, pushImpuls, pushStep, scalarDist, subTime, vectDist;
       if (this.ended) {
         return;
       }
@@ -299,10 +308,12 @@ http://jsbin.com/kabozihe/1
         this.ended = true;
       }
       pureStep = this.stepDir.part(subTime);
-      fokusDist = dist(this.world.fokus, this.pos) / 100;
-      vectDist = new Vec2(this.pos.x - this.world.fokus.x, this.pos.y - this.world.fokus.y).mult(1 / 10000).mult(this.world.pushField / (square(fokusDist)));
-      pureStep.add(vectDist);
-      return this.pos.add(pureStep);
+      vectDist = this.world.fokus.dist(this.pos);
+      scalarDist = vectDist.scalar();
+      pushImpuls = this.world.pushField / (pow(scalarDist, this.pushFactor));
+      pushStep = vectDist.copy();
+      pushStep.mult(pushImpuls);
+      return this.pos.add(pureStep).add(pushStep);
     };
 
     Particle.prototype.draw = function() {
@@ -326,8 +337,12 @@ http://jsbin.com/kabozihe/1
     return x * x;
   };
 
+  pow = function(num, exp) {
+    return Math.pow(num, exp);
+  };
+
   dist = function(a, b) {
-    return Math.sqrt(square(b.x - a.x) + square(b.y - a.y));
+    return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
   };
 
   SecondParticle = (function(_super) {
