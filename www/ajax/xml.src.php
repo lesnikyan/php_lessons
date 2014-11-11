@@ -1,6 +1,6 @@
 <?php
 
-header(Content-Type: text/plane; charset=utf-8);
+header('Content-Type: text/plane; charset=utf-8');
 
 $names = ['Vasya', 'Olya', 'Viktor', 'John', 'Ali', 'Tom', 'Ricardo', 'Allan'];
 $surnames = ['Pupkin', 'Mikhailoff', 'Petrenko', 'MacArtur', 'O\'Genry', 'Po', 'Maradonna', 'Rogriges'];

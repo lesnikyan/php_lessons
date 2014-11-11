@@ -6,6 +6,7 @@ var data = {
 	]
 };
 
+/*
 <data>
 	<name>Vasya</name>
 	<age>23</age>
@@ -14,4 +15,4 @@ var data = {
 		<friend>Kolya</friend>
 	</friends>
 </data>
-
+*/
