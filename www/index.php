@@ -1,14 +1,10 @@
 <?php
 
-
-$x = 12;
-$y = 2 * 3;
-$z = $x + $y;
-
-print " z = $z \n";
-
-print gettype(123) . " <br> \n";
-
-print (true || FALSE) ? 'Y' : 'N';
-
-phpinfo();
+$dir = 'LessonsList';
+$list = scandir($dir);
+foreach($list as $item){
+	if(preg_match('#^\.+$#', $item) || !is_dir("$dir/$item")){
+		continue;
+	}
+	print "<a href='$dir/$item'>$item</a><br>\n";
+}
