@@ -10,12 +10,12 @@ function vd($x){
 
 // Interfases
 
-interface Movable{
-	function drive();
+interface MoveUnit {
+	public function drive();
 }
 
-class Car implements Movable{
-	function drive(){
+class Car implements MoveUnit {
+	public function drive(){
 		p('dyr dyr dyr');
 	}
 }
