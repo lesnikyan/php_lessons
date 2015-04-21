@@ -14,3 +14,29 @@ p($user->test());
 $userData = new \Database\User();
 pr($userData->data());
 
+// ******** too many USE :) ********* \\
+
+trait NoWoman {
+	static function noCry(){
+		return "no cry";
+	}
+}
+
+
+use \Auth\User;
+
+class Anonimus extends User {
+	
+	use NoWoman;
+	
+	function test($sentence = "anonimus dominatus"){
+		$f = function($name) use ($sentence){
+			return "$name, it's true: '$sentence'... but, " . self::noCry();
+		};
+		return $f;
+	}
+}
+
+$anon = new Anonimus();
+$oracle = $anon->test("homo homini lupus est");
+p($oracle("Young padavan"));
