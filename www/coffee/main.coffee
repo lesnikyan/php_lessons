@@ -2,11 +2,13 @@
 # coffee -w -0 ./ *.coffee
 
 ###
-online
+online 2 3
 http://jsbin.com/kabozihe/1
 ###
 
 log = (x) -> console.log(x) if console
+
+test2 = (x) -> x * x * 21
 
 animationLoop = (foo) ->
 	requestAnimationFrame foo

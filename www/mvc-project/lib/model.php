@@ -40,7 +40,7 @@ class Model {
 		$fields = '';
 		$sqlData = array();
 		foreach($data as $key => $val){
-			$fields = "`{$key}` = ?,";
+			$fields .= "`{$key}` = ?,";
 			$sqlData[] = $val;
 		}
 		$fields = substr($fields, 0 , -1);

@@ -4,4 +4,5 @@
 .git
 .idea
 *tmp*
+*.KWI
 /nbproject/
